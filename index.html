@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:,">
+  <style>
+    #notification {
+      display: none;
+    }
+  </style>
+  <title>minimal-sw-caching</title>
+</head>
+
+<body>
+  <header>
+    <h1>minimal-sw-caching</h1>
+  </header>
+
+  <main>
+    <p id="response">Fetching some content from API...</p>
+    <p id="notification">An updated version of this page is available. Refresh to view.</p>
+  </main>
+
+  <script>
+    navigator.serviceWorker.register('/sw.js');
+
+    const cacheChannel = new BroadcastChannel('cache');
+    cacheChannel.addEventListener('message', () => document.querySelector('#notification').style.display = 'block');
+
+    fetch('/api')
+      .then(r => r.text())
+      .then(t => document.querySelector('#response').textContent = t);
+  </script>
+</body>
+
+</html>

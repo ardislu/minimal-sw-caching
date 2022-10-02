@@ -19,8 +19,18 @@
   </header>
 
   <main>
-    <p id="response">Fetching some content from API...</p>
-    <p id="notification">An updated version of this page is available. Refresh to view.</p>
+    <p>This page is a minimal implementation of the <a href="https://web.dev/stale-while-revalidate/">stale-while-revalidate</a> caching strategy using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">service workers</a>.</p>
+    <p>To demonstrate the caching, I've implemented a simple API. The <code>/api</code> endpoint on this domain returns the current timestamp rounded down to the nearest 10 second mark.</p>
+    <p>However, this API has a <strong>hardcoded delay of 1 second</strong> to simulate a slow network.</p>
+    <p>The following timestamp was fetched from <code>/api</code>:</p>
+    <p id="response">Fetching timestamp...</p>
+    <p>Wait 10 seconds, then refresh this page.</p>
+    <p>If you refreshed the page, you'll see the old timestamp was served immediately. That's the "stale" content that the service worker cached.</p>
+    <p>However, the original network request to <code>/api</code> continued in the background. That's the "revalidate" part of this strategy.</p>
+    <p>And if the <code>/api</code> response differs from the cached content, a notification dialog appears.</p>
+    <p>This pattern is common in native apps, but surprisingly difficult to implement on the web.</p>
+    <p>Using modern web APIs, this capability was implemented in about 35 lines of JavaScript.</p>
+    <p><a href="https://github.com/ardislu/minimal-sw-caching">Click here</a> to view the source code on GitHub.</p>
   </main>
 
   <script>

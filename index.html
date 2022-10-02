@@ -33,11 +33,27 @@
     <p><a href="https://github.com/ardislu/minimal-sw-caching">Click here</a> to view the source code on GitHub.</p>
   </main>
 
+  <dialog>
+    <div class="dialog-content">
+      <p>An updated version of this page is available.</p>
+      <a href="/">Refresh</a>
+      <form method="dialog">
+        <button>
+          <svg role="img" aria-labelledby="close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <title id="close">Close</title>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </dialog>
+
   <script>
     navigator.serviceWorker.register('/sw.js');
 
     const cacheChannel = new BroadcastChannel('cache');
-    cacheChannel.addEventListener('message', () => document.querySelector('#notification').style.display = 'block');
+    cacheChannel.addEventListener('message', () => document.querySelector('dialog').show());
 
     fetch('/api')
       .then(r => r.text())

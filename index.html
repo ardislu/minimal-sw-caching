@@ -57,7 +57,7 @@
 
     fetch('/api')
       .then(r => r.text())
-      .then(t => document.querySelector('#response').textContent = t);
+      .then(t => document.querySelector('#response').textContent = `${new Date(parseInt(t)).toLocaleString()}`);
   </script>
 </body>
 

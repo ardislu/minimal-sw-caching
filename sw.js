@@ -1,15 +1,10 @@
 const cacheName = 'v1';
 const cacheChannel = new BroadcastChannel('cache');
 
-// To simulate a short network delay
-function timeout(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 async function revalidate(request) {
   const cachePromise = caches.match(request).then(r => r?.text());
   const responsePromise = fetch(request);
-  const [cachedText, response] = await Promise.all([cachePromise, responsePromise, timeout(200)]);
+  const [cachedText, response] = await Promise.all([cachePromise, responsePromise]);
   const responseClone = response.clone();
   const responseClone2 = response.clone();
   const responseText = await response.text();

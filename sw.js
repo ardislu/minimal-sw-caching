@@ -21,6 +21,6 @@ async function revalidate(request) {
 self.addEventListener('fetch', event => {
   event.respondWith(caches.match(event.request).then(cachedResponse => {
     const networkResponse = revalidate(event.request);
-    return cachedResponse === undefined ? networkResponse : cachedResponse;
+    return cachedResponse ?? networkResponse;
   }));
 });
